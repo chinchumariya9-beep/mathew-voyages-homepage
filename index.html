@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathew Voyages | Minimalist Travel Agency</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f4f7f6',
+                            100: '#e4ebe8',
+                            500: '#4a7c59', // Muted sage/forest green
+                            600: '#3d6649',
+                            900: '#1a2e21',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fafafa;
+            color: #333;
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Hide scrollbar for horizontal scrolling elements */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?q=80&w=2940&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+        }
+        .smooth-transition {
+            transition: all 0.3s ease;
+        }
+        
+        /* Marquee Animation for Local Experts */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+        }
+        .marquee-content {
+            display: inline-flex;
+            animation: marquee 40s linear infinite;
+        }
+        .marquee-content:hover {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Sticky Header -->
+    <header class="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer">
+                    <img class="h-14 w-auto" src="https://lindeavecmathew.com/wp-content/uploads/2026/02/Mvlogo-web.jpg" alt="Mathew Voyages">
+                </div>
+                
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#destinations" class="text-gray-600 hover:text-brand-500 font-medium smooth-transition text-sm" data-i18n="nav_dest">Destinations</a>
+                    <a href="#inspirations" class="text-gray-600 hover:text-brand-500 font-medium smooth-transition text-sm" data-i18n="nav_how">How to go</a>
+                    <a href="#vision" class="text-gray-600 hover:text-brand-500 font-medium smooth-transition text-sm" data-i18n="nav_vision">Vision</a>
+                    <a href="#experts" class="text-gray-600 hover:text-brand-500 font-medium smooth-transition text-sm" data-i18n="nav_prep">Prepare</a>
+                </nav>
+
+                <!-- Actions (Added WhatsApp and Email Icons) -->
+                <div class="flex items-center space-x-4">
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/1234567890" target="_blank" class="text-gray-500 hover:text-green-500 smooth-transition" title="WhatsApp">
+                        <i class="fab fa-whatsapp text-xl"></i>
+                    </a>
+                    <!-- Email -->
+                    <a href="mailto:info@mathewvoyages.com" class="text-gray-500 hover:text-brand-900 smooth-transition" title="Email">
+                        <i class="far fa-envelope text-xl"></i>
+                    </a>
+                    
+                    <!-- Language Switcher -->
+                    <button id="langToggle" class="text-sm font-semibold text-gray-700 bg-gray-100 px-3 py-1.5 rounded-full hover:bg-gray-200 smooth-transition focus:outline-none">
+                        EN / <span class="text-gray-400">FR</span>
+                    </button>
+                    <!-- CTA -->
+                    <a href="#" class="hidden md:inline-flex bg-brand-900 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-brand-600 smooth-transition shadow-md hover:shadow-lg" data-i18n="nav_cta">
+                        Create Trip
+                    </a>
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden text-gray-600 hover:text-brand-900 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-20 pb-32 lg:pt-32 lg:pb-48 hero-bg min-h-[85vh] flex items-center justify-center">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-10">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tight mb-6 drop-shadow-lg" data-i18n="hero_title">
+                Crafted Journeys, Authentic Memories
+            </h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-200 max-w-2xl mx-auto font-light drop-shadow-md mb-12" data-i18n="hero_sub">
+                Discover the world at your own pace with our local experts. Minimalist travel, maximalist experiences.
+            </p>
+
+            <!-- Search / Filter Box -->
+            <div class="max-w-4xl mx-auto bg-white rounded-3xl p-3 md:p-4 shadow-2xl backdrop-blur-xl bg-opacity-95">
+                <!-- Tabs -->
+                <div class="flex space-x-2 mb-4 p-1 bg-gray-100 rounded-full w-max mx-auto md:mx-0">
+                    <button class="px-6 py-2 rounded-full bg-white shadow-sm text-sm font-semibold text-brand-900 smooth-transition" data-i18n="tab_tailor">Tailor-made trips</button>
+                    <button class="px-6 py-2 rounded-full text-sm font-medium text-gray-500 hover:text-gray-900 smooth-transition" data-i18n="tab_group">Small group trips</button>
+                </div>
+                
+                <!-- Inputs -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+                    <div class="relative w-full border border-gray-200 rounded-2xl p-3 flex items-center bg-gray-50">
+                        <i class="fas fa-location-dot text-gray-400 mr-3 ml-2"></i>
+                        <input type="text" class="w-full bg-transparent border-none focus:ring-0 text-sm outline-none" data-i18n-placeholder="search_dest" placeholder="Where to?">
+                    </div>
+                    <div class="relative w-full border border-gray-200 rounded-2xl p-3 flex items-center bg-gray-50">
+                        <i class="far fa-calendar-alt text-gray-400 mr-3 ml-2"></i>
+                        <input type="text" class="w-full bg-transparent border-none focus:ring-0 text-sm outline-none" data-i18n-placeholder="search_when" placeholder="When? (Month)">
+                    </div>
+                    <div class="relative w-full border border-gray-200 rounded-2xl p-3 flex items-center bg-gray-50">
+                        <i class="far fa-clock text-gray-400 mr-3 ml-2"></i>
+                        <select class="w-full bg-transparent border-none focus:ring-0 text-sm outline-none text-gray-600 appearance-none">
+                            <option value="" disabled selected data-i18n="search_dur">Duration</option>
+                            <option value="1">1 Week</option>
+                            <option value="2">2 Weeks</option>
+                            <option value="3">3+ Weeks</option>
+                        </select>
+                    </div>
+                    <button class="w-full bg-brand-900 text-white rounded-2xl p-4 text-sm font-bold hover:bg-brand-600 smooth-transition shadow-lg flex items-center justify-center">
+                        <span data-i18n="search_btn">Search</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages Section -->
+    <section class="bg-white py-10 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-6 text-center divide-x divide-gray-100">
+                <div class="px-2">
+                    <i class="fas fa-users text-2xl text-brand-500 mb-3"></i>
+                    <h3 class="text-sm font-bold text-gray-900" data-i18n="adv_1_title">80+ Local Experts</h3>
+                    <p class="text-xs text-gray-500 mt-1" data-i18n="adv_1_sub">Directly on site</p>
+                </div>
+                <div class="px-2">
+                    <i class="fas fa-award text-2xl text-brand-500 mb-3"></i>
+                    <h3 class="text-sm font-bold text-gray-900" data-i18n="adv_2_title">21 Years Experience</h3>
+                    <p class="text-xs text-gray-500 mt-1" data-i18n="adv_2_sub">Crafting unique journeys</p>
+                </div>
+                <div class="px-2">
+                    <i class="fas fa-globe-europe text-2xl text-brand-500 mb-3"></i>
+                    <h3 class="text-sm font-bold text-gray-900" data-i18n="adv_3_title">Local & France</h3>
+                    <p class="text-xs text-gray-500 mt-1" data-i18n="adv_3_sub">Offices worldwide</p>
+                </div>
+                <div class="px-2">
+                    <i class="fas fa-passport text-2xl text-brand-500 mb-3"></i>
+                    <h3 class="text-sm font-bold text-gray-900" data-i18n="adv_5_title">Visa Bookings</h3>
+                    <p class="text-xs text-gray-500 mt-1" data-i18n="adv_5_sub">Effortless travel procedure</p>
+                </div>
+                <div class="px-2">
+                    <i class="fas fa-shield-alt text-2xl text-brand-500 mb-3"></i>
+                    <h3 class="text-sm font-bold text-gray-900" data-i18n="adv_4_title">100% Guaranteed</h3>
+                    <p class="text-xs text-gray-500 mt-1" data-i18n="adv_4_sub">Safe & secure payments</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Destinations Grid (Updated to Horizontal Scroll) -->
+    <section id="destinations" class="py-20 bg-brand-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 tracking-tight" data-i18n="dest_title">Our Destinations</h2>
+                    <p class="mt-2 text-gray-600" data-i18n="dest_sub">Explore the beauty of Asia and beyond.</p>
+                </div>
+            </div>
+
+            <!-- Horizontal scroll container -->
+            <div class="flex overflow-x-auto snap-x snap-mandatory gap-6 no-scrollbar pb-8 -mb-8">
+                <!-- India -->
+                <div class="shrink-0 snap-start w-[70vw] md:w-[280px] group relative rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl smooth-transition aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?q=80&w=800&auto=format&fit=crop" alt="India" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-xl font-bold text-white mb-1" data-i18n="dest_india">India</h3>
+                    </div>
+                </div>
+                <!-- Sri Lanka -->
+                <div class="shrink-0 snap-start w-[70vw] md:w-[280px] group relative rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl smooth-transition aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1518391846015-55a9cc003b25?q=80&w=800&auto=format&fit=crop" alt="Sri Lanka" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-xl font-bold text-white mb-1" data-i18n="dest_srilanka">Sri Lanka</h3>
+                    </div>
+                </div>
+                <!-- Japan -->
+                <div class="shrink-0 snap-start w-[70vw] md:w-[280px] group relative rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl smooth-transition aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=800&auto=format&fit=crop" alt="Japan" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-xl font-bold text-white mb-1" data-i18n="dest_japan">Japan</h3>
+                    </div>
+                </div>
+                <!-- Nepal -->
+                <div class="shrink-0 snap-start w-[70vw] md:w-[280px] group relative rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl smooth-transition aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=800&auto=format&fit=crop" alt="Nepal" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-xl font-bold text-white mb-1" data-i18n="dest_nepal">Nepal</h3>
+                    </div>
+                </div>
+                <!-- Bhutan -->
+                <div class="shrink-0 snap-start w-[70vw] md:w-[280px] group relative rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl smooth-transition aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1584286595398-a59f21d313f5?q=80&w=800&auto=format&fit=crop" alt="Bhutan" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-xl font-bold text-white mb-1" data-i18n="dest_bhutan">Bhutan</h3>
+                    </div>
+                </div>
+                <!-- Uzbekistan -->
+                <div class="shrink-0 snap-start w-[70vw] md:w-[280px] group relative rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl smooth-transition aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1550977287-6e4652fb6a18?q=80&w=800&auto=format&fit=crop" alt="Uzbekistan" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-xl font-bold text-white mb-1" data-i18n="dest_uzbekistan">Uzbekistan</h3>
+                    </div>
+                </div>
+                <!-- Oman -->
+                <div class="shrink-0 snap-start w-[70vw] md:w-[280px] group relative rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl smooth-transition aspect-[4/5]">
+                    <img src="https://images.unsplash.com/photo-1572979201995-12b2024db21e?q=80&w=800&auto=format&fit=crop" alt="Oman" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 smooth-transition duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <h3 class="text-xl font-bold text-white mb-1" data-i18n="dest_oman">Oman</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Tours Section (Updated to Horizontal Scroll) -->
+    <section class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-900 tracking-tight text-center mb-12" data-i18n="tours_title">Featured Itineraries</h2>
+            
+            <div class="flex overflow-x-auto snap-x snap-mandatory gap-8 no-scrollbar pb-8 -mb-8">
+                <!-- Tour Card 1 -->
+                <div class="shrink-0 snap-start w-[85vw] md:w-[400px] bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl smooth-transition flex flex-col">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?q=80&w=800&auto=format&fit=crop" alt="Tour" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-brand-900" data-i18n="tag_must_see">Must-see</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight" data-i18n="tour_1_title">The Golden Triangle & Tigers</h3>
+                        <p class="text-sm text-gray-500 mb-4 line-clamp-2" data-i18n="tour_1_desc">A perfect blend of culture, history, and wildlife in northern India.</p>
+                        <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                            <div class="flex items-center text-gray-500 text-sm">
+                                <i class="far fa-clock mr-2"></i>
+                                <span data-i18n="tour_1_dur">12 Days</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-gray-400 block" data-i18n="from_price">From</span>
+                                <span class="text-lg font-bold text-brand-900">€ 1,250</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tour Card 2 -->
+                <div class="shrink-0 snap-start w-[85vw] md:w-[400px] bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl smooth-transition flex flex-col">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?q=80&w=800&auto=format&fit=crop" alt="Tour" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-brand-900" data-i18n="tag_off_path">Off the beaten path</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight" data-i18n="tour_2_title">Hidden Valleys of Ladakh</h3>
+                        <p class="text-sm text-gray-500 mb-4 line-clamp-2" data-i18n="tour_2_desc">Immerse yourself in Buddhist culture and dramatic mountain landscapes.</p>
+                        <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                            <div class="flex items-center text-gray-500 text-sm">
+                                <i class="far fa-clock mr-2"></i>
+                                <span data-i18n="tour_2_dur">15 Days</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-gray-400 block" data-i18n="from_price">From</span>
+                                <span class="text-lg font-bold text-brand-900">€ 1,890</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tour Card 3 -->
+                <div class="shrink-0 snap-start w-[85vw] md:w-[400px] bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl smooth-transition flex flex-col">
+                    <div class="relative h-64">
+                        <img src="https://images.unsplash.com/photo-1536697246787-1f276329e4f7?q=80&w=800&auto=format&fit=crop" alt="Tour" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-brand-900" data-i18n="tag_nature">Nature & Wildlife</div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight" data-i18n="tour_3_title">Sri Lanka Coastal Escape</h3>
+                        <p class="text-sm text-gray-500 mb-4 line-clamp-2" data-i18n="tour_3_desc">Relax on pristine beaches, visit tea plantations, and spot leopards.</p>
+                        <div class="mt-auto pt-4 border-t border-gray-100 flex items-center justify-between">
+                            <div class="flex items-center text-gray-500 text-sm">
+                                <i class="far fa-clock mr-2"></i>
+                                <span data-i18n="tour_3_dur">10 Days</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-gray-400 block" data-i18n="from_price">From</span>
+                                <span class="text-lg font-bold text-brand-900">€ 950</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="bg-gray-100 text-gray-900 px-8 py-3 rounded-full text-sm font-semibold hover:bg-gray-200 smooth-transition" data-i18n="tours_btn">View All Itineraries</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inspirations Section (Updated to Horizontal Scroll) -->
+    <section id="inspirations" class="py-20 bg-brand-900 text-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold tracking-tight mb-2" data-i18n="inspire_title">Travel Inspirations</h2>
+                <p class="text-gray-400" data-i18n="inspire_sub">Find the style of travel that suits your soul.</p>
+            </div>
+
+            <div class="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 no-scrollbar pb-8 -mb-8">
+                <!-- Style 1 -->
+                <div class="shrink-0 snap-start w-[60vw] md:w-[300px] relative rounded-2xl overflow-hidden aspect-square group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 smooth-transition duration-500" alt="Wellness">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 smooth-transition"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <h3 class="text-xl md:text-2xl font-bold text-white tracking-wide" data-i18n="style_wellness">Wellness</h3>
+                    </div>
+                </div>
+                <!-- Style 2 -->
+                <div class="shrink-0 snap-start w-[60vw] md:w-[300px] relative rounded-2xl overflow-hidden aspect-square group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 smooth-transition duration-500" alt="Trekking">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 smooth-transition"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <h3 class="text-xl md:text-2xl font-bold text-white tracking-wide" data-i18n="style_trek">Trekking</h3>
+                    </div>
+                </div>
+                <!-- Style 3 -->
+                <div class="shrink-0 snap-start w-[60vw] md:w-[300px] relative rounded-2xl overflow-hidden aspect-square group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 smooth-transition duration-500" alt="Romance">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 smooth-transition"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <h3 class="text-xl md:text-2xl font-bold text-white tracking-wide" data-i18n="style_romance">Romance</h3>
+                    </div>
+                </div>
+                <!-- Style 4 -->
+                <div class="shrink-0 snap-start w-[60vw] md:w-[300px] relative rounded-2xl overflow-hidden aspect-square group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 smooth-transition duration-500" alt="Friends">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 smooth-transition"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <h3 class="text-xl md:text-2xl font-bold text-white tracking-wide" data-i18n="style_friends">With Friends</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Family Travel Banner -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-brand-50 rounded-3xl overflow-hidden flex flex-col md:flex-row items-center">
+                <div class="p-10 md:p-16 md:w-1/2">
+                    <span class="text-brand-600 font-bold text-sm uppercase tracking-wider mb-2 block" data-i18n="fam_tag">Family Collection</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-i18n="fam_title">Travel with your tribe</h2>
+                    <p class="text-gray-600 mb-8" data-i18n="fam_desc">We design slow-paced itineraries adapted to children of all ages. Safe, engaging, and unforgettable for the whole family.</p>
+                    <a href="#" class="inline-flex items-center text-brand-900 font-bold hover:text-brand-600 smooth-transition">
+                        <span data-i18n="fam_btn">Discover Family Trips</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                <div class="w-full md:w-1/2 h-64 md:h-full min-h-[300px] relative">
+                    <img src="https://images.unsplash.com/photo-1542044801-38d3ef711b74?q=80&w=800&auto=format&fit=crop" alt="Family Travel" class="absolute inset-0 w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Vision Section (CEO Quote) with Read More -->
+    <section id="vision" class="py-24 bg-white border-t border-gray-100">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <i class="fas fa-quote-left text-4xl text-brand-100 mb-6 block"></i>
+            <h2 class="text-2xl md:text-3xl font-light text-gray-800 leading-relaxed italic mb-10" data-i18n="vision_quote">
+                "Our vision is to create bridges between cultures. We believe in travel that respects the environment and empowers local communities, offering you an unfiltered, deeply human experience."
+            </h2>
+            <div class="flex flex-col items-center justify-center">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=150&auto=format&fit=crop" alt="Alexandre" class="w-16 h-16 rounded-full object-cover shadow-md mb-4">
+                <h4 class="font-bold text-gray-900" data-i18n="vision_name">Thambi Mathew</h4>
+                <p class="text-sm text-gray-500" data-i18n="vision_title">Founder & CEO</p>
+                
+                <!-- Added Read More Link -->
+                <a href="#" class="mt-6 inline-flex items-center text-brand-900 font-bold hover:text-brand-600 hover:underline smooth-transition">
+                    <span data-i18n="vision_read_more">Read more</span>
+                    <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Local Experts (Auto-Scrolling Marquee) -->
+    <section id="experts" class="py-20 bg-brand-50 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4" data-i18n="expert_title">Meet Our Local Experts</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto" data-i18n="expert_desc">Passionate locals living in the destinations, ready to design your perfect bespoke itinerary.</p>
+        </div>
+
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <!-- Group 1 (Originals) -->
+                <div class="flex items-center gap-12 md:gap-24 px-6 md:px-12">
+                    <!-- Expert 1 -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Camille</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_1">Expert - India</p>
+                    </div>
+                    <!-- Expert 2 -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Rajesh</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_2">Expert - Sri Lanka</p>
+                    </div>
+                    <!-- Expert 3 -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Sophie</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_3">Expert - Vietnam</p>
+                    </div>
+                    <!-- Expert 4 -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Julien</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_4">Expert - Indonesia</p>
+                    </div>
+                    <!-- Expert 1 (Repeated to make list long enough) -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Camille</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_1">Expert - India</p>
+                    </div>
+                    <!-- Expert 2 (Repeated) -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Rajesh</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_2">Expert - Sri Lanka</p>
+                    </div>
+                    <!-- Expert 3 (Repeated) -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Sophie</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_3">Expert - Vietnam</p>
+                    </div>
+                    <!-- Expert 4 (Repeated) -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Julien</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_4">Expert - Indonesia</p>
+                    </div>
+                </div>
+                
+                <!-- Group 2 (Exact Duplicate for seamless loop) -->
+                <div class="flex items-center gap-12 md:gap-24 px-6 md:px-12">
+                    <!-- Expert 1 -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Camille</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_1">Expert - India</p>
+                    </div>
+                    <!-- Expert 2 -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Rajesh</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_2">Expert - Sri Lanka</p>
+                    </div>
+                    <!-- Expert 3 -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Sophie</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_3">Expert - Vietnam</p>
+                    </div>
+                    <!-- Expert 4 -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Julien</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_4">Expert - Indonesia</p>
+                    </div>
+                    <!-- Expert 1 (Repeated to make list long enough) -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Camille</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_1">Expert - India</p>
+                    </div>
+                    <!-- Expert 2 (Repeated) -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Rajesh</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_2">Expert - Sri Lanka</p>
+                    </div>
+                    <!-- Expert 3 (Repeated) -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Sophie</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_3">Expert - Vietnam</p>
+                    </div>
+                    <!-- Expert 4 (Repeated) -->
+                    <div class="flex flex-col items-center shrink-0 w-32">
+                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Expert" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg mb-3">
+                        <h4 class="font-bold text-gray-900">Julien</h4>
+                        <p class="text-xs text-brand-600 font-medium" data-i18n="expert_loc_4">Expert - Indonesia</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-10 flex justify-center">
+                <button class="border-2 border-brand-900 text-brand-900 px-6 py-2 rounded-full text-sm font-semibold hover:bg-brand-900 hover:text-white smooth-transition" data-i18n="expert_btn">Contact an expert</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trustpilot-style Testimonials -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col items-center mb-12">
+                <div class="flex text-green-500 text-xl mb-2">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="text-gray-900 font-bold text-lg" data-i18n="trust_score">Excellent 4.9/5 based on 3,450 reviews</p>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Trustpilot_logo_%282021%29.svg/512px-Trustpilot_logo_%282021%29.svg.png" class="h-6 mt-3 opacity-60" alt="Trustpilot">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Review 1 -->
+                <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100">
+                    <div class="flex text-green-500 text-sm mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-2" data-i18n="rev_1_title">An unforgettable honeymoon!</h4>
+                    <p class="text-gray-600 text-sm mb-6" data-i18n="rev_1_desc">Everything was planned perfectly. The local guide was knowledgeable and we felt safe the entire time. A true 5-star experience.</p>
+                    <p class="text-xs text-gray-400 font-semibold uppercase">Marie & Thomas, 2 weeks ago</p>
+                </div>
+                <!-- Review 2 -->
+                <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100">
+                    <div class="flex text-green-500 text-sm mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-2" data-i18n="rev_2_title">Flawless organization in India</h4>
+                    <p class="text-gray-600 text-sm mb-6" data-i18n="rev_2_desc">Aura managed to create an itinerary that balanced major sights with hidden gems. Highly recommend their bespoke service.</p>
+                    <p class="text-xs text-gray-400 font-semibold uppercase">David P., 1 month ago</p>
+                </div>
+                <!-- Review 3 -->
+                <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 hidden md:block">
+                    <div class="flex text-green-500 text-sm mb-4">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-900 mb-2" data-i18n="rev_3_title">Best family trip ever</h4>
+                    <p class="text-gray-600 text-sm mb-6" data-i18n="rev_3_desc">Traveling with kids can be hard, but our expert made it a breeze. Great pacing and kid-friendly activities.</p>
+                    <p class="text-xs text-gray-400 font-semibold uppercase">Sarah Jenkins, 2 months ago</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Magazine / Blog -->
+    <section class="py-20 bg-brand-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-10" data-i18n="blog_title">Travel Magazine</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Article 1 -->
+                <div class="group cursor-pointer">
+                    <div class="rounded-2xl overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?q=80&w=600&auto=format&fit=crop" alt="Blog" class="w-full h-48 object-cover group-hover:scale-105 smooth-transition">
+                    </div>
+                    <span class="text-xs font-bold text-brand-600 uppercase tracking-wider mb-2 block" data-i18n="blog_cat_1">Guide</span>
+                    <h3 class="text-lg font-bold text-gray-900 group-hover:text-brand-600 smooth-transition" data-i18n="blog_1_title">Top 10 Boutique Hotels in Goa</h3>
+                </div>
+                <!-- Article 2 -->
+                <div class="group cursor-pointer">
+                    <div class="rounded-2xl overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1501555088652-021faa106b9b?q=80&w=600&auto=format&fit=crop" alt="Blog" class="w-full h-48 object-cover group-hover:scale-105 smooth-transition">
+                    </div>
+                    <span class="text-xs font-bold text-brand-600 uppercase tracking-wider mb-2 block" data-i18n="blog_cat_2">Inspiration</span>
+                    <h3 class="text-lg font-bold text-gray-900 group-hover:text-brand-600 smooth-transition" data-i18n="blog_2_title">Trekking the Annapurna Circuit: What to pack?</h3>
+                </div>
+                <!-- Article 3 -->
+                <div class="group cursor-pointer">
+                    <div class="rounded-2xl overflow-hidden mb-4">
+                        <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?q=80&w=600&auto=format&fit=crop" alt="Blog" class="w-full h-48 object-cover group-hover:scale-105 smooth-transition">
+                    </div>
+                    <span class="text-xs font-bold text-brand-600 uppercase tracking-wider mb-2 block" data-i18n="blog_cat_3">Culture</span>
+                    <h3 class="text-lg font-bold text-gray-900 group-hover:text-brand-600 smooth-transition" data-i18n="blog_3_title">Understanding Tea Culture in Sri Lanka</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-24 bg-white border-b border-gray-100">
+        <div class="max-w-2xl mx-auto px-4 text-center">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4" data-i18n="news_title">Join our inner circle</h2>
+            <p class="text-gray-500 mb-8" data-i18n="news_desc">Get exclusive travel inspirations, hidden gems, and special offers delivered right to your inbox once a month.</p>
+            
+            <form class="flex flex-col sm:flex-row max-w-md mx-auto gap-2">
+                <input type="email" class="w-full bg-gray-50 border border-gray-200 text-gray-900 rounded-full px-6 py-3 focus:outline-none focus:border-brand-500 focus:bg-white smooth-transition text-sm" data-i18n-placeholder="news_ph" placeholder="Your email address">
+                <button type="submit" class="w-full sm:w-auto bg-brand-900 text-white font-semibold rounded-full px-8 py-3 hover:bg-brand-600 smooth-transition text-sm whitespace-nowrap" data-i18n="news_btn">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 mb-16">
+                <!-- Branding & Contact -->
+                <div class="lg:col-span-2">
+                    <img class="h-10 w-auto mb-4" src="https://lindeavecmathew.com/wp-content/uploads/2026/02/Mvlogo-web.jpg" alt="Mathew Voyages">
+                    <p class="text-sm text-gray-500 mb-6 max-w-sm" data-i18n="footer_desc">Bespoke travel experiences crafted with care by local experts. Authentic, sustainable, unforgettable.</p>
+                    <div class="space-y-2 text-sm text-gray-600">
+                        <p><i class="fas fa-map-marker-alt w-5 text-gray-400"></i> Kerala, India / Paris, France</p>
+                        <p><i class="fas fa-phone w-5 text-gray-400"></i> +91 123 456 7890</p>
+                        <p><i class="fas fa-envelope w-5 text-gray-400"></i> info@mathewvoyages.com</p>
+                    </div>
+                </div>
+
+                <!-- Links 1 -->
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4" data-i18n="foot_link_1">Destinations</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-brand-600 smooth-transition" data-i18n="dest_india">India</a></li>
+                        <li><a href="#" class="hover:text-brand-600 smooth-transition" data-i18n="dest_srilanka">Sri Lanka</a></li>
+                        <li><a href="#" class="hover:text-brand-600 smooth-transition" data-i18n="dest_nepal">Nepal</a></li>
+                        <li><a href="#" class="hover:text-brand-600 smooth-transition" data-i18n="dest_japan">Japan</a></li>
+                        <li><a href="#" class="hover:text-brand-600 smooth-transition" data-i18n="dest_uzbekistan">Uzbekistan</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links 2 -->
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4" data-i18n="foot_link_2">Travel Styles</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-brand-600 smooth-transition" data-i18n="style_wellness">Wellness</a></li>
+                        <li><a href="#" class="hover:text-brand-600 smooth-transition" data-i18n="style_trek">Trekking</a></li>
+                        <li><a href="#" class="hover:text-brand-600 smooth-transition" data-i18n="style_romance">Romance</a></li>
+                        <li><a href="#" class="hover:text-brand-600 smooth-transition" data-i18n="fam_tag">Family Collection</a></li>
+                        <li><a href="#" class="hover:text-brand-600 smooth-transition" data-i18n="tab_group">Small Group Trips</a></li>
+                    </ul>
+                </div>
+
+                <!-- Links 3 -->
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4" data-i18n="foot_link_3">About Us</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-brand-600 smooth-transition" data-i18n="nav_vision">Our Vision</a></li>
+                        <li><a href="#" class="hover:text-brand-600 smooth-transition" data-i18n="expert_title">Local Experts</a></li>
+                        <li><a href="#" class="hover:text-brand-600 smooth-transition" data-i18n="foot_sus">Sustainability</a></li>
+                        <li><a href="#" class="hover:text-brand-600 smooth-transition" data-i18n="foot_job">Careers</a></li>
+                        <li><a href="#" class="hover:text-brand-600 smooth-transition" data-i18n="foot_press">Press</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-400">© 2026 Mathew Voyages Pvt Ltd. All rights reserved.</p>
+                <div class="flex space-x-6 text-gray-400">
+                    <a href="#" class="hover:text-brand-600 smooth-transition"><i class="fab fa-instagram text-lg"></i></a>
+                    <a href="#" class="hover:text-brand-600 smooth-transition"><i class="fab fa-facebook-f text-lg"></i></a>
+                    <a href="#" class="hover:text-brand-600 smooth-transition"><i class="fab fa-youtube text-lg"></i></a>
+                    <a href="#" class="hover:text-brand-600 smooth-transition"><i class="fab fa-pinterest text-lg"></i></a>
+                </div>
+                <div class="flex space-x-4 text-xs text-gray-400">
+                    <a href="#" class="hover:text-gray-600 smooth-transition" data-i18n="foot_legal">Legal Notice</a>
+                    <a href="#" class="hover:text-gray-600 smooth-transition" data-i18n="foot_privacy">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-600 smooth-transition" data-i18n="foot_terms">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Language Dictionary
+        const translations = {
+            en: {
+                nav_dest: "Destinations",
+                nav_how: "How to go",
+                nav_vision: "Vision",
+                nav_prep: "Prepare",
+                nav_cta: "Create Trip",
+                
+                hero_title: "Crafted Journeys, Authentic Memories",
+                hero_sub: "Discover the world at your own pace with our local experts. Minimalist travel, maximalist experiences.",
+                tab_tailor: "Tailor-made trips",
+                tab_group: "Small group trips",
+                search_dest: "Where to?",
+                search_when: "When? (Month)",
+                search_dur: "Duration",
+                search_btn: "Search",
+
+                adv_1_title: "80+ Local Experts",
+                adv_1_sub: "Directly on site",
+                adv_2_title: "21 Years Experience",
+                adv_2_sub: "Crafting unique journeys",
+                adv_3_title: "Local & France",
+                adv_3_sub: "Offices worldwide",
+                adv_4_title: "100% Guaranteed",
+                adv_4_sub: "Safe & secure payments",
+                adv_5_title: "Visa Bookings",
+                adv_5_sub: "Effortless travel procedure",
+
+                dest_title: "Our Destinations",
+                dest_sub: "Explore the beauty of Asia and beyond.",
+                dest_india: "India",
+                dest_srilanka: "Sri Lanka",
+                dest_japan: "Japan",
+                dest_nepal: "Nepal",
+                dest_bhutan: "Bhutan",
+                dest_uzbekistan: "Uzbekistan",
+                dest_oman: "Oman",
+
+                tours_title: "Featured Itineraries",
+                tag_must_see: "Must-see",
+                tag_off_path: "Off the beaten path",
+                tag_nature: "Nature & Wildlife",
+                tour_1_title: "The Golden Triangle & Tigers",
+                tour_1_desc: "A perfect blend of culture, history, and wildlife in northern India.",
+                tour_1_dur: "12 Days",
+                tour_2_title: "Hidden Valleys of Ladakh",
+                tour_2_desc: "Immerse yourself in Buddhist culture and dramatic mountain landscapes.",
+                tour_2_dur: "15 Days",
+                tour_3_title: "Sri Lanka Coastal Escape",
+                tour_3_desc: "Relax on pristine beaches, visit tea plantations, and spot leopards.",
+                tour_3_dur: "10 Days",
+                from_price: "From",
+                tours_btn: "View All Itineraries",
+
+                inspire_title: "Travel Inspirations",
+                inspire_sub: "Find the style of travel that suits your soul.",
+                style_wellness: "Wellness",
+                style_trek: "Trekking",
+                style_romance: "Romance",
+                style_friends: "With Friends",
+
+                fam_tag: "Family Collection",
+                fam_title: "Travel with your tribe",
+                fam_desc: "We design slow-paced itineraries adapted to children of all ages. Safe, engaging, and unforgettable for the whole family.",
+                fam_btn: "Discover Family Trips",
+
+                vision_quote: `"Our vision is to create bridges between cultures. We believe in travel that respects the environment and empowers local communities, offering you an unfiltered, deeply human experience."`,
+                vision_name: "Thambi Mathew",
+                vision_title: "Founder & CEO",
+                vision_read_more: "Read more",
+
+                expert_title: "Meet Our Local Experts",
+                expert_desc: "Passionate locals living in the destinations, ready to design your perfect bespoke itinerary.",
+                expert_loc_1: "Expert - India",
+                expert_loc_2: "Expert - Sri Lanka",
+                expert_loc_3: "Expert - Vietnam",
+                expert_loc_4: "Expert - Indonesia",
+                expert_btn: "Contact an expert",
+
+                trust_score: "Excellent 4.9/5 based on 3,450 reviews",
+                rev_1_title: "An unforgettable honeymoon!",
+                rev_1_desc: "Everything was planned perfectly. The local guide was knowledgeable and we felt safe the entire time. A true 5-star experience.",
+                rev_2_title: "Flawless organization in India",
+                rev_2_desc: "Mathew Voyages managed to create an itinerary that balanced major sights with hidden gems. Highly recommend their bespoke service.",
+                rev_3_title: "Best family trip ever",
+                rev_3_desc: "Traveling with kids can be hard, but our expert made it a breeze. Great pacing and kid-friendly activities.",
+
+                blog_title: "Travel Magazine",
+                blog_cat_1: "Guide",
+                blog_1_title: "Top 10 Boutique Hotels in Goa",
+                blog_cat_2: "Inspiration",
+                blog_2_title: "Trekking the Annapurna Circuit: What to pack?",
+                blog_cat_3: "Culture",
+                blog_3_title: "Understanding Tea Culture in Sri Lanka",
+
+                news_title: "Join our inner circle",
+                news_desc: "Get exclusive travel inspirations, hidden gems, and special offers delivered right to your inbox once a month.",
+                news_ph: "Your email address",
+                news_btn: "Subscribe",
+
+                footer_desc: "Bespoke travel experiences crafted with care by local experts. Authentic, sustainable, unforgettable.",
+                foot_link_1: "Destinations",
+                foot_link_2: "Travel Styles",
+                foot_link_3: "About Us",
+                foot_sus: "Sustainability",
+                foot_job: "Careers",
+                foot_press: "Press",
+                foot_legal: "Legal Notice",
+                foot_privacy: "Privacy Policy",
+                foot_terms: "Terms & Conditions"
+            },
+            fr: {
+                nav_dest: "Destinations",
+                nav_how: "Comment partir",
+                nav_vision: "Notre vision",
+                nav_prep: "Se préparer",
+                nav_cta: "Créer un voyage",
+                
+                hero_title: "Voyages sur mesure, Souvenirs authentiques",
+                hero_sub: "Découvrez le monde à votre rythme avec nos experts locaux. Voyage minimaliste, expériences maximalistes.",
+                tab_tailor: "Voyages sur mesure",
+                tab_group: "Voyages en petit groupe",
+                search_dest: "Où aller ?",
+                search_when: "Quand ? (Mois)",
+                search_dur: "Durée",
+                search_btn: "Rechercher",
+
+                adv_1_title: "80+ Experts Locaux",
+                adv_1_sub: "Directement sur place",
+                adv_2_title: "21 Ans d'Expérience",
+                adv_2_sub: "Créateurs de voyages",
+                adv_3_title: "Présence Locale & France",
+                adv_3_sub: "Bureaux dans le monde",
+                adv_4_title: "100% Garanties",
+                adv_4_sub: "Paiements sécurisés",
+                adv_5_title: "Réservations de Visas",
+                adv_5_sub: "Procédure de voyage sans effort",
+
+                dest_title: "Nos Destinations",
+                dest_sub: "Explorez la beauté de l'Asie et au-delà.",
+                dest_india: "Inde",
+                dest_srilanka: "Sri Lanka",
+                dest_japan: "Japon",
+                dest_nepal: "Népal",
+                dest_bhutan: "Bhoutan",
+                dest_uzbekistan: "Ouzbékistan",
+                dest_oman: "Oman",
+
+                tours_title: "Itinéraires Phares",
+                tag_must_see: "Incontournables",
+                tag_off_path: "Hors des sentiers battus",
+                tag_nature: "Nature & Vie sauvage",
+                tour_1_title: "Le Triangle d'Or et les Tigres",
+                tour_1_desc: "Un mélange parfait de culture, d'histoire et de vie sauvage dans le nord de l'Inde.",
+                tour_1_dur: "12 Jours",
+                tour_2_title: "Vallées Cachées du Ladakh",
+                tour_2_desc: "Plongez dans la culture bouddhiste et les paysages de montagne dramatiques.",
+                tour_2_dur: "15 Jours",
+                tour_3_title: "Escapade Côtière au Sri Lanka",
+                tour_3_desc: "Détendez-vous sur des plages immaculées, visitez des plantations de thé et observez les léopards.",
+                tour_3_dur: "10 Jours",
+                from_price: "À partir de",
+                tours_btn: "Voir Tous les Itinéraires",
+
+                inspire_title: "Inspirations de Voyage",
+                inspire_sub: "Trouvez le style de voyage qui correspond à votre âme.",
+                style_wellness: "Bien-être",
+                style_trek: "Trekking",
+                style_romance: "Romance",
+                style_friends: "Entre Amis",
+
+                fam_tag: "Collection Famille",
+                fam_title: "Voyagez avec votre tribu",
+                fam_desc: "Nous concevons des itinéraires à un rythme lent, adaptés aux enfants de tous âges. Sûrs, engageants et inoubliables pour toute la famille.",
+                fam_btn: "Découvrir les Voyages en Famille",
+
+                vision_quote: `"Notre vision est de créer des ponts entre les cultures. Nous croyons en un voyage qui respecte l'environnement et donne des moyens aux communautés locales, vous offrant une expérience profondément humaine et sans filtre."`,
+                vision_name: "Thambi Mathew",
+                vision_title: "Fondateur & PDG",
+                vision_read_more: "En savoir plus",
+
+                expert_title: "Rencontrez Nos Experts Locaux",
+                expert_desc: "Des locaux passionnés vivant dans les destinations, prêts à concevoir votre itinéraire sur mesure parfait.",
+                expert_loc_1: "Expert - Inde",
+                expert_loc_2: "Expert - Sri Lanka",
+                expert_loc_3: "Expert - Vietnam",
+                expert_loc_4: "Expert - Indonésie",
+                expert_btn: "Contacter un expert",
+
+                trust_score: "Excellent 4.9/5 basé sur 3 450 avis",
+                rev_1_title: "Une lune de miel inoubliable !",
+                rev_1_desc: "Tout était parfaitement organisé. Le guide local était très compétent et nous nous sommes sentis en sécurité tout le temps.",
+                rev_2_title: "Organisation sans faille en Inde",
+                rev_2_desc: "Mathew Voyages a réussi à créer un itinéraire équilibrant les sites majeurs avec des trésors cachés. Je recommande vivement.",
+                rev_3_title: "Le meilleur voyage en famille",
+                rev_3_desc: "Voyager avec des enfants peut être difficile, mais notre expert a rendu cela facile. Bon rythme et activités adaptées.",
+
+                blog_title: "Magazine de Voyage",
+                blog_cat_1: "Guide",
+                blog_1_title: "Top 10 des Hôtels Boutiques à Goa",
+                blog_cat_2: "Inspiration",
+                blog_2_title: "Trek du Circuit des Annapurnas: Que emporter?",
+                blog_cat_3: "Culture",
+                blog_3_title: "Comprendre la Culture du Thé au Sri Lanka",
+
+                news_title: "Rejoignez notre cercle intime",
+                news_desc: "Recevez des inspirations de voyage exclusives, des perles rares et des offres spéciales directement dans votre boîte mail une fois par mois.",
+                news_ph: "Votre adresse e-mail",
+                news_btn: "S'abonner",
+
+                footer_desc: "Des expériences de voyage sur mesure conçues avec soin par des experts locaux. Authentiques, durables, inoubliables.",
+                foot_link_1: "Destinations",
+                foot_link_2: "Styles de Voyage",
+                foot_link_3: "À Propos",
+                foot_sus: "Durabilité",
+                foot_job: "Carrières",
+                foot_press: "Presse",
+                foot_legal: "Mentions Légales",
+                foot_privacy: "Politique de Confidentialité",
+                foot_terms: "Conditions Générales"
+            }
+        };
+
+        let currentLang = 'en';
+        const langToggleBtn = document.getElementById('langToggle');
+
+        // Toggle Language Function
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'fr' : 'en';
+            
+            // Update button text
+            if(currentLang === 'en') {
+                langToggleBtn.innerHTML = 'EN / <span class="text-gray-400">FR</span>';
+            } else {
+                langToggleBtn.innerHTML = '<span class="text-gray-400">EN</span> / FR';
+            }
+
+            // Update all elements with data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(translations[currentLang][key]) {
+                    el.textContent = translations[currentLang][key];
+                }
+            });
+
+            // Update placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if(translations[currentLang][key]) {
+                    el.placeholder = translations[currentLang][key];
+                }
+            });
+        }
+
+        // Add event listener to toggle button
+        langToggleBtn.addEventListener('click', toggleLanguage);
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-md');
+                header.classList.remove('shadow-sm');
+            } else {
+                header.classList.add('shadow-sm');
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body>
+</html>
